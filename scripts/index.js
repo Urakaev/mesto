@@ -39,7 +39,7 @@ document.addEventListener('keydown', function(event) {
     }
 })
 
-// записываем из инпутов 
+// записываем из инпутов, выключаем попап 
 
 function formSubmitHandler (e) {
     e.preventDefault(); 
