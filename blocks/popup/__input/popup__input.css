@@ -1,0 +1,14 @@
+.popup__input {
+    font-family: Inter, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    padding: 14px 5px 13px;
+}
+.popup__input:last-of-type {
+    margin-top: 16px;
+}
+.popup__input:focus {
+    outline-color: steelblue;
+}
