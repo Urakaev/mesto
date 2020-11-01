@@ -1,0 +1,13 @@
+.picture-card__like {
+    width: 21px;
+    height: 19px;
+    background-image: url(../../../images/like_empty.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.picture-card__like:hover {
+    background-image: url(../../../images/like_active.svg);
+}
