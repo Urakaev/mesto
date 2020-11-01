@@ -1,0 +1,10 @@
+.user-info {
+    display: flex;
+    align-items: center;
+}
+@media screen and (max-width: 767px){
+    .user-info {
+        flex-direction: column;
+        margin-bottom: 35px;
+    }
+}
