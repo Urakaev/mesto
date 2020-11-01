@@ -4,7 +4,7 @@
 
 
 * [Ссылка на проект](https://github.com/Urakaev/mesto)
-* [Ссылка на страницу «Место»](https://urakaev.github.io/russian-travel/)
+* [Ссылка на страницу «Место»](https://urakaev.github.io/mesto/)
 
 Проект для отработки навыков вёрстки и навыков работы с DOM API:
 * CSS Flexible Box Layout;
