@@ -6,6 +6,8 @@
     background-repeat: no-repeat;
     cursor: pointer;
     flex-shrink: 0;
+    border: none;
+    background-color: transparent;
 }
 
 .picture-card__like:hover {
