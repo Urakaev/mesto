@@ -1,6 +1,6 @@
 .picture-card__like {
     width: 21px;
-    height: 19px;
+    height: 20px;
     background-image: url(../../../images/like_empty.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -12,4 +12,8 @@
 
 .picture-card__like:hover {
     background-image: url(../../../images/like_active.svg);
+}
+
+.picture-card__like:focus {
+    outline-color: steelblue;
 }
