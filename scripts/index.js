@@ -19,39 +19,44 @@ function fillFields () {
     popupTitle.value = userProf.textContent;  
 }
 
+// заполняем заголовок и подзаголовок 
+
+function fillInfo () {
+    userName.textContent = popupName.value;
+    userProf.textContent = popupTitle.value;
+}
+
 // туглим попап
 
 function togglePopup () {
     popup.classList.toggle('popup_opened')
 }
 
-editProfileBtn.addEventListener('click', () => {
+// переключаем попап и заполняем поля 
+
+function toggleAndFill () {
     togglePopup();
     fillFields();
-});
+}
 
+// записываем из инпутов, выключаем попап 
+
+function formSubmitHandler (e) {
+    e.preventDefault(); 
+    fillInfo();
+    togglePopup();
+}
+
+// вешаем слушатели 
+
+editProfileBtn.addEventListener('click', toggleAndFill);
 closePopupBtn.addEventListener('click', togglePopup);
-
 document.addEventListener('keydown', function(event) {
     const {key} = event; 
     if (key === "Escape") {
         togglePopup();
     }
 })
-
-// записываем из инпутов, выключаем попап 
-
-function formSubmitHandler (e) {
-    e.preventDefault(); 
-
-    let nameFromForm = popupName.value;
-    let titleFromForm = popupTitle.value;
-
-    userName.textContent = nameFromForm;
-    userProf.textContent = titleFromForm;
-
-    togglePopup();
-}
-
 formElement.addEventListener('submit', formSubmitHandler); 
+
 

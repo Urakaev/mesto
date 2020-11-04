@@ -16,5 +16,6 @@
 @media screen and (max-width: 767px){
     .add-picture-button {
         width: 100%;
+        background-size: 16px 16px;
     }
 }
