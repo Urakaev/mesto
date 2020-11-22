@@ -1,0 +1,12 @@
+.picture-card__imgBtn {
+    padding: 0;
+    margin: 0;
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}
+.picture-card__imgBtn:focus {
+    outline: none;
+}

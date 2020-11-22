@@ -39,6 +39,8 @@ const addCardBtn = document.querySelector('.add-picture-button');
 
 const popupProfile = document.querySelector('#popupContentProfile');
 const popupPlace = document.querySelector('#popupContentPlace');
+const popupImage = document.querySelector('#imagePopup');
+
 
 const profilePopupName = popupProfile.querySelector('.popup__input_type_name');
 const profilePopupTitle = popupProfile.querySelector('.popup__input_type_title');
@@ -57,38 +59,19 @@ function fillFields () {
     profilePopupTitle.value = userProf.textContent;  
 }
 
+function fillImgPopup (node) {
+    const popupTitle = popupImage.querySelector('.popup__title');
+    popupTitle.textContent = node.querySelector('.picture-card__title').textContent;
+
+    const popupImg = popupImage.querySelector('.popup__picture');
+    popupImg.src = node.querySelector('.picture-card__picture').src
+}
 // туглим попап
 
 function togglePopup (node) {
     node.classList.toggle('popup_opened')
 }
 
-// обработчики включения попапов 
-
-editProfileBtn.addEventListener('click', () => {
-    togglePopup(popupProfile);
-    fillFields();
-});
-
-addCardBtn.addEventListener('click', () => {
-    togglePopup(popupPlace);
-});
-
-// закрытие попапа
-
-closePopupBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const popupNode = btn.closest('.popup');
-        togglePopup(popupNode);
-    });
-})
-
-document.addEventListener('keydown', function(event) {
-    const {key} = event; 
-    if (key === "Escape") {
-        togglePopup();
-    }
-})
 
 // записываем из инпутов, выключаем попап профиля
 
@@ -150,4 +133,43 @@ const renderMestoCard = (card, dir) => {
 
 initialCards.forEach(card => {
     renderMestoCard(card, 'append'); 
+})
+
+// обработчики включения попапов 
+
+// профиль
+editProfileBtn.addEventListener('click', () => {
+    togglePopup(popupProfile);
+    fillFields();
+});
+
+// место
+addCardBtn.addEventListener('click', () => {
+    togglePopup(popupPlace);
+});
+
+// изображение
+const cardImgBtns = document.querySelectorAll('.picture-card__imgBtn')
+cardImgBtns.forEach(item => {
+    item.addEventListener('click', () => {
+        togglePopup(popupImage);
+        const card = item.closest('.picture-card');
+        fillImgPopup(card);
+    })
+})
+
+// закрытие попапа
+
+closePopupBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const popupNode = btn.closest('.popup');
+        togglePopup(popupNode);
+    });
+})
+
+document.addEventListener('keydown', function(event) {
+    const {key} = event; 
+    if (key === "Escape") {
+        togglePopup();
+    }
 })
