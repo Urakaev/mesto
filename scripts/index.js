@@ -1,4 +1,31 @@
-// info card nodes 
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+// info-card nodes 
 
 const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
@@ -55,3 +82,27 @@ function formSubmitHandler (e) {
 
 formElement.addEventListener('submit', formSubmitHandler); 
 
+
+// вся работа с карточками мест
+
+const mestoCardContainer = document.querySelector('.pictures-grid');
+
+const renderMestoCard = (card) => {
+    const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true)
+
+    mestoCard.querySelector('.picture-card__title').textContent = card.name;
+    mestoCard.querySelector('.picture-card__picture').src = card.link;
+    mestoCard.querySelector('.picture-card__picture').alt = card.name;
+
+    const delBtn = mestoCard.querySelector('.picture-card__delButton');
+    delBtn.addEventListener('click', event => {
+        const cardNode = event.target.closest('.picture-card');
+        if (cardNode) {
+            cardNode.remove()
+        }
+    })
+
+    mestoCardContainer.append(mestoCard)
+}
+
+initialCards.forEach(renderMestoCard)

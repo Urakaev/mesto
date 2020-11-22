@@ -25,6 +25,7 @@
 
 @import url('./../blocks/picture-card/picture-card.css');
 @import url('./../blocks/picture-card/__picture/picture-card__picture.css');
+@import url('./../blocks/picture-card/__delButton/picture-card__delButton.css');
 @import url('./../blocks/picture-card/__info/picture-card__info.css');
 @import url('./../blocks/picture-card/__title/picture-card__title.css');
 @import url('./../blocks/picture-card/__like/picture-card__like.css');
