@@ -30,6 +30,7 @@
 @import url('./../blocks/picture-card/__info/picture-card__info.css');
 @import url('./../blocks/picture-card/__title/picture-card__title.css');
 @import url('./../blocks/picture-card/__like/picture-card__like.css');
+@import url('./../blocks/picture-card/__like/_active/picture-card__like_active.css');
 
 @import url('./../blocks/footer/footer.css');
 @import url('./../blocks/footer/__copyright/footer__copyright.css');

@@ -34,6 +34,7 @@ const editProfileBtn = document.querySelector('.user-info__edit-button');
 // cards nodes
 
 const addCardBtn = document.querySelector('.add-picture-button');
+let cardImgBtns
 
 // popup nodes
 
@@ -101,11 +102,17 @@ function placeFormSubmitHandler (e) {
     
     renderMestoCard(singleCard, 'prepend');
     togglePopup(popupPlace);
+    
 }
 
 placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
 
 // вся работа с карточками мест
+
+const imgBtnHandler = (item) => {
+    togglePopup(popupImage);
+    fillImgPopup(item);
+}
 
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
@@ -116,6 +123,24 @@ const renderMestoCard = (card, dir) => {
     mestoCard.querySelector('.picture-card__picture').src = card.link;
     mestoCard.querySelector('.picture-card__picture').alt = card.name;
 
+    // вешаем открытие попапа с изображением на каждый элемент
+
+    const imgBtn = mestoCard.querySelector('.picture-card__imgBtn');
+    imgBtn.addEventListener('click', (event) => {
+        const cardNode = event.target.closest('.picture-card');
+        togglePopup(popupImage);
+        fillImgPopup(cardNode);
+    })   
+    
+    // вешаем лайк 
+    
+    const likeBtn = mestoCard.querySelector('.picture-card__like');
+    likeBtn.addEventListener('click', () => {
+        likeBtn.classList.toggle('picture-card__like_active'); 
+    })
+
+    // удаление карточки 
+
     const delBtn = mestoCard.querySelector('.picture-card__delButton');
     delBtn.addEventListener('click', event => {
         const cardNode = event.target.closest('.picture-card');
@@ -123,12 +148,15 @@ const renderMestoCard = (card, dir) => {
             cardNode.remove()
         }
     })
+
     if (dir === 'prepend') {
         mestoCardContainer.prepend(mestoCard);
     }
     else {
         mestoCardContainer.append(mestoCard);
     }
+    return cardImgBtns = document.querySelectorAll('.picture-card__imgBtn');
+    
 }
 
 initialCards.forEach(card => {
@@ -149,15 +177,19 @@ addCardBtn.addEventListener('click', () => {
 });
 
 // изображение
-const cardImgBtns = document.querySelectorAll('.picture-card__imgBtn')
+/*
+const imgBtnHandler = (item) => {
+    togglePopup(popupImage);
+    const card = item.closest('.picture-card');
+    fillImgPopup(card);
+}
+
 cardImgBtns.forEach(item => {
     item.addEventListener('click', () => {
-        togglePopup(popupImage);
-        const card = item.closest('.picture-card');
-        fillImgPopup(card);
-    })
+        imgBtnHandler(item)
+    })   
 })
-
+*/
 // закрытие попапа
 
 closePopupBtns.forEach(btn => {
