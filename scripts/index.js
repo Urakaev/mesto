@@ -73,7 +73,6 @@ function togglePopup (node) {
     node.classList.toggle('popup_opened')
 }
 
-
 // записываем из инпутов, выключаем попап профиля
 
 function profileFormSubmitHandler (e) {
@@ -176,25 +175,15 @@ addCardBtn.addEventListener('click', () => {
     togglePopup(popupPlace);
 });
 
-// изображение
-/*
-const imgBtnHandler = (item) => {
-    togglePopup(popupImage);
-    const card = item.closest('.picture-card');
-    fillImgPopup(card);
-}
-
-cardImgBtns.forEach(item => {
-    item.addEventListener('click', () => {
-        imgBtnHandler(item)
-    })   
-})
-*/
 // закрытие попапа
 
 closePopupBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const popupNode = btn.closest('.popup');
+        if (popupNode.getAttribute('id') === 'imagePopup') {
+            popupNode.querySelector('.popup__picture').src = ""
+            popupNode.querySelector('.popup__title').textContent = ""
+        }
         togglePopup(popupNode);
     });
 })
