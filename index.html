@@ -25,56 +25,14 @@
                 </div>
                 <button type="button" class="add-picture-button"></button>
             </div>
-            <div class="pictures-grid">
-                <div class="picture-card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Карачаевск-карачаевск</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Гора Эльбрус</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Домбай</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Гора Эльбрус</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Карачаевск</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <h2 class="picture-card__title">Домбай</h2>
-                        <button type="button" class="picture-card__like"></button>
-                    </div>
-                </div>                                                                              
+            <div class="pictures-grid">                                                                         
             </div>
         </main>
         <footer class="footer">
             <span class="footer__copyright">&copy; 2020. Уракаев Богдан</span>
         </footer>
     </div>
-    <div class="popup">
+    <div class="popup" id="popupContentProfile">
         <div class="popup__content">
             <button type="button" class="popup__close-button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
@@ -85,6 +43,36 @@
             </form>
         </div>
     </div>
+    <div class="popup" id="popupContentPlace">
+        <div class="popup__content">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form class="popup__form">
+              <input type="text" class="popup__input popup__input_type_name" placeholder="Название">
+              <input type="text" class="popup__input popup__input_type_title" placeholder="Ссылка на картинку">
+              <button class="popup__submit-button" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>    
+    <div class="popup" id="imagePopup">
+        <div class="popup__content popup__content_type_transparent">
+            <button type="button" class="popup__close-button"></button>
+            <img class="popup__picture" src="https://www.eremont.ru/bitrix/templates/eremont_main_2017/images/oblozhka-glavnaya_1920.jpg" alt="">
+            <h3 class="popup__title popup__title_theme_white">Байкал</h3>
+        </div>
+    </div>     
+    <template class="picture-card-template">
+        <div class="picture-card">
+            <button type="button" class="picture-card__imgBtn">
+                <img src="" alt="" class="picture-card__picture">
+            </button>
+            <button type="button" class="picture-card__delButton"></button>
+            <div class="picture-card__info">
+                <p class="picture-card__title"></p>
+                <button type="button" class="picture-card__like"></button>
+            </div>
+        </div>  
+    </template>    
 <script src="./scripts/index.js"></script>    
 </body>
 </html>

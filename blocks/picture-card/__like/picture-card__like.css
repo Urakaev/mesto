@@ -1,6 +1,10 @@
 .picture-card__like {
     width: 21px;
-    height: 20px;
+    height: 19px;
+    background-color: unset;
+    border: none;
+    padding: 0;
+    margin: 0;
     background-image: url(../../../images/like_empty.svg);
     background-position: center;
     background-repeat: no-repeat;

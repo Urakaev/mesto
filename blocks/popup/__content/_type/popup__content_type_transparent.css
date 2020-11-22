@@ -1,0 +1,7 @@
+.popup__content_type_transparent {
+    max-width: none;
+    width: auto;
+    background-color: transparent;
+    min-height: auto;
+    padding: 0;
+}

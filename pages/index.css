@@ -24,10 +24,13 @@
 @import url('./../blocks/pictures-grid/pictures-grid.css');
 
 @import url('./../blocks/picture-card/picture-card.css');
+@import url('./../blocks/picture-card/__imgBtn/picture-card__imgBtn.css');
 @import url('./../blocks/picture-card/__picture/picture-card__picture.css');
+@import url('./../blocks/picture-card/__delButton/picture-card__delButton.css');
 @import url('./../blocks/picture-card/__info/picture-card__info.css');
 @import url('./../blocks/picture-card/__title/picture-card__title.css');
 @import url('./../blocks/picture-card/__like/picture-card__like.css');
+@import url('./../blocks/picture-card/__like/_active/picture-card__like_active.css');
 
 @import url('./../blocks/footer/footer.css');
 @import url('./../blocks/footer/__copyright/footer__copyright.css');
@@ -35,8 +38,11 @@
 @import url('./../blocks/popup/popup.css');
 @import url('./../blocks/popup/_opened/popup_opened.css');
 @import url('./../blocks/popup/__content/popup__content.css');
+@import url('./../blocks/popup/__content/_type/popup__content_type_transparent.css');
+@import url('./../blocks/popup/__picture/popup__picture.css');
 @import url('./../blocks/popup/__close-button/popup__close-button.css');
 @import url('./../blocks/popup/__title/popup__title.css');
+@import url('./../blocks/popup/__title/_theme/popup__title_theme_white.css');
 @import url('./../blocks/popup/__form/popup__form.css');
 @import url('./../blocks/popup/__input/popup__input.css');
 @import url('./../blocks/popup/__submit-button/popup__submit-button.css');

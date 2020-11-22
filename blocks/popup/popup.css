@@ -8,5 +8,9 @@
     left: 0;
     bottom: 0;
     right: 0;
-    display: none;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    transition: visibility 0s, opacity 0.5s linear;
   }
