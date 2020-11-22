@@ -44,8 +44,8 @@ const profilePopupName = popupProfile.querySelector('.popup__input_type_name');
 const profilePopupTitle = popupProfile.querySelector('.popup__input_type_title');
 const profileFormElement = popupProfile.querySelector('.popup__form');
 
-const placePopupName = popupPlace.querySelector('.popup__input_type_name');
-const placePopupTitle = popupPlace.querySelector('.popup__input_type_title');
+const placeName = popupPlace.querySelector('.popup__input_type_name');
+const placeLink = popupPlace.querySelector('.popup__input_type_title');
 const placeFormElement = popupPlace.querySelector('.popup__form');
 
 const closePopupBtns = document.querySelectorAll('.popup__close-button');
@@ -111,6 +111,12 @@ profileFormElement.addEventListener('submit', profileFormSubmitHandler);
 function placeFormSubmitHandler (e) {
     e.preventDefault(); 
 
+    let singleCard = {}
+
+    singleCard.name = placeName.value;
+    singleCard.link = placeLink.value;
+    
+    renderMestoCard(singleCard, 'prepend');
     togglePopup(popupPlace);
 }
 
@@ -120,8 +126,8 @@ placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
-const renderMestoCard = (card) => {
-    const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true)
+const renderMestoCard = (card, dir) => {
+    const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
 
     mestoCard.querySelector('.picture-card__title').textContent = card.name;
     mestoCard.querySelector('.picture-card__picture').src = card.link;
@@ -134,8 +140,14 @@ const renderMestoCard = (card) => {
             cardNode.remove()
         }
     })
-
-    mestoCardContainer.append(mestoCard)
+    if (dir === 'prepend') {
+        mestoCardContainer.prepend(mestoCard);
+    }
+    else {
+        mestoCardContainer.append(mestoCard);
+    }
 }
 
-initialCards.forEach(renderMestoCard)
+initialCards.forEach(card => {
+    renderMestoCard(card, 'append'); 
+})
