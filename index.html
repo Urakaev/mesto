@@ -25,57 +25,14 @@
                 </div>
                 <button class="add-picture-button"></button>
             </div>
-            <div class="pictures-grid">
-                <!--<div class="picture-card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Карачаевск-карачаевск</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Гора Эльбрус</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Домбай</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Гора Эльбрус</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Карачаевск</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>
-                <div class="picture-card">
-                    <img src="./images/dombai.jpg" alt="Домбай" class="picture-card__picture">
-                    <div class="picture-card__info">
-                        <p class="picture-card__title">Домбай</p>
-                        <div class="picture-card__like"></div>
-                    </div>
-                </div>  
-                -->                                                                            
+            <div class="pictures-grid">                                                                         
             </div>
         </main>
         <footer class="footer">
             <span class="footer__copyright">&copy; 2020. Уракаев Богдан</span>
         </footer>
     </div>
-    <div class="popup">
+    <div class="popup" id="popupContentProfile">
         <div class="popup__content">
             <button type="button" class="popup__close-button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
@@ -86,6 +43,17 @@
             </form>
         </div>
     </div>
+    <div class="popup" id="popupContentPlace">
+        <div class="popup__content">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form class="popup__form">
+              <input type="text" class="popup__input popup__input_type_name" placeholder="Название">
+              <input type="text" class="popup__input popup__input_type_title" placeholder="Ссылка на картинку">
+              <button class="popup__submit-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>    
     <template class="picture-card-template">
         <div class="picture-card">
             <img src="" alt="" class="picture-card__picture">

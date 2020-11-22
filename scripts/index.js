@@ -31,33 +31,57 @@ const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
 const editProfileBtn = document.querySelector('.user-info__edit-button');
 
+// cards nodes
+
+const addCardBtn = document.querySelector('.add-picture-button');
+
 // popup nodes
 
-const popup = document.querySelector('.popup');
-const popupName = popup.querySelector('.popup__input_type_name');
-const popupTitle = popup.querySelector('.popup__input_type_title');
-const closePopupBtn = popup.querySelector('.popup__close-button');
-const formElement = popup.querySelector('.popup__form');
+const popupProfile = document.querySelector('#popupContentProfile');
+const popupPlace = document.querySelector('#popupContentPlace');
+
+const profilePopupName = popupProfile.querySelector('.popup__input_type_name');
+const profilePopupTitle = popupProfile.querySelector('.popup__input_type_title');
+const profileFormElement = popupProfile.querySelector('.popup__form');
+
+const placePopupName = popupPlace.querySelector('.popup__input_type_name');
+const placePopupTitle = popupPlace.querySelector('.popup__input_type_title');
+const placeFormElement = popupPlace.querySelector('.popup__form');
+
+const closePopupBtns = document.querySelectorAll('.popup__close-button');
 
 // заполняем поля
 
 function fillFields () {
-    popupName.value = userName.textContent;
-    popupTitle.value = userProf.textContent;  
+    profilePopupName.value = userName.textContent;
+    profilePopupTitle.value = userProf.textContent;  
 }
 
 // туглим попап
 
-function togglePopup () {
-    popup.classList.toggle('popup_opened')
+function togglePopup (node) {
+    node.classList.toggle('popup_opened')
 }
 
+// обработчики включения попапов 
+
 editProfileBtn.addEventListener('click', () => {
-    togglePopup();
+    togglePopup(popupProfile);
     fillFields();
 });
 
-closePopupBtn.addEventListener('click', togglePopup);
+addCardBtn.addEventListener('click', () => {
+    togglePopup(popupPlace);
+});
+
+// закрытие попапа
+
+closePopupBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const popupNode = btn.closest('.popup');
+        togglePopup(popupNode);
+    });
+})
 
 document.addEventListener('keydown', function(event) {
     const {key} = event; 
@@ -66,22 +90,31 @@ document.addEventListener('keydown', function(event) {
     }
 })
 
-// записываем из инпутов, выключаем попап 
+// записываем из инпутов, выключаем попап профиля
 
-function formSubmitHandler (e) {
+function profileFormSubmitHandler (e) {
     e.preventDefault(); 
 
-    let nameFromForm = popupName.value;
-    let titleFromForm = popupTitle.value;
+    const nameFromForm = profilePopupName.value;
+    const titleFromForm = profilePopupTitle.value;
 
     userName.textContent = nameFromForm;
     userProf.textContent = titleFromForm;
 
-    togglePopup();
+    togglePopup(popupProfile);
 }
 
-formElement.addEventListener('submit', formSubmitHandler); 
+profileFormElement.addEventListener('submit', profileFormSubmitHandler); 
 
+// записываем из инпутов, выключаем попап места 
+
+function placeFormSubmitHandler (e) {
+    e.preventDefault(); 
+
+    togglePopup(popupPlace);
+}
+
+placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
 
 // вся работа с карточками мест
 
