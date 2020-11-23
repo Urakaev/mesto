@@ -1,30 +1,3 @@
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 // info-card nodes 
 
 const userName = document.querySelector('.user-info__name')
@@ -34,28 +7,29 @@ const editProfileBtn = document.querySelector('.user-info__edit-button');
 // cards nodes
 
 const addCardBtn = document.querySelector('.add-picture-button');
-let cardImgBtns
 
 // popup nodes
 
-const popupProfile = document.querySelector('#popupContentProfile');
-const popupPlace = document.querySelector('#popupContentPlace');
-const popupImage = document.querySelector('#imagePopup');
+const popupProfile = document.querySelector('.popup_edit-user-profile');
+const popupPlace = document.querySelector('.popup_add-card');
+const popupImage = document.querySelector('.popup_show-image');
 
 
 const profilePopupName = popupProfile.querySelector('.popup__input_type_name');
-const profilePopupTitle = popupProfile.querySelector('.popup__input_type_title');
+const profilePopupTitle = popupProfile.querySelector('.popup__input_type_profession');
 const profileFormElement = popupProfile.querySelector('.popup__form');
 
-const placeName = popupPlace.querySelector('.popup__input_type_name');
-const placeLink = popupPlace.querySelector('.popup__input_type_title');
+const placeName = popupPlace.querySelector('.popup__input_type_card-name');
+const placeLink = popupPlace.querySelector('.popup__input_type_link');
 const placeFormElement = popupPlace.querySelector('.popup__form');
 
-const closePopupBtns = document.querySelectorAll('.popup__close-button');
+const closeProfilePopupBtn = popupProfile.querySelector('.popup__close-button');
+const closePlacePopupBtn = popupPlace.querySelector('.popup__close-button');
+const closeImagePopupBtn = popupImage.querySelector('.popup__close-button');
 
 // заполняем поля
 
-function fillFields () {
+function fillEditUserProfilePopupFilelds () {
     profilePopupName.value = userName.textContent;
     profilePopupTitle.value = userProf.textContent;  
 }
@@ -65,7 +39,8 @@ function fillImgPopup (node) {
     popupTitle.textContent = node.querySelector('.picture-card__title').textContent;
 
     const popupImg = popupImage.querySelector('.popup__picture');
-    popupImg.src = node.querySelector('.picture-card__picture').src
+    popupImg.src = node.querySelector('.picture-card__picture').src;
+    popupImg.alt = node.querySelector('.picture-card__title').textContent;
 }
 // туглим попап
 
@@ -94,12 +69,12 @@ profileFormElement.addEventListener('submit', profileFormSubmitHandler);
 function placeFormSubmitHandler (e) {
     e.preventDefault(); 
 
-    let singleCard = {}
+    const singleCard = {}
 
     singleCard.name = placeName.value;
     singleCard.link = placeLink.value;
     
-    renderMestoCard(singleCard, 'prepend');
+    createCard(singleCard);
     togglePopup(popupPlace);
     
 }
@@ -108,19 +83,19 @@ placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
 // вся работа с карточками мест
 
-const imgBtnHandler = (item) => {
-    togglePopup(popupImage);
-    fillImgPopup(item);
-}
-
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
-const renderMestoCard = (card, dir) => {
+const addCard = (card) => {
+    mestoCardContainer.prepend(card);
+}
+
+const createCard = (card) => {
     const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
+    const picture = mestoCard.querySelector('.picture-card__picture');
 
     mestoCard.querySelector('.picture-card__title').textContent = card.name;
-    mestoCard.querySelector('.picture-card__picture').src = card.link;
-    mestoCard.querySelector('.picture-card__picture').alt = card.name;
+    picture.src = card.link;
+    picture.alt = card.name;
 
     // вешаем открытие попапа с изображением на каждый элемент
 
@@ -148,26 +123,18 @@ const renderMestoCard = (card, dir) => {
         }
     })
 
-    if (dir === 'prepend') {
-        mestoCardContainer.prepend(mestoCard);
-    }
-    else {
-        mestoCardContainer.append(mestoCard);
-    }
-    return cardImgBtns = document.querySelectorAll('.picture-card__imgBtn');
-    
+    addCard(mestoCard);
+
 }
 
-initialCards.forEach(card => {
-    renderMestoCard(card, 'append'); 
-})
+initialCards.forEach(createCard);
 
 // обработчики включения попапов 
 
 // профиль
 editProfileBtn.addEventListener('click', () => {
     togglePopup(popupProfile);
-    fillFields();
+    fillEditUserProfilePopupFilelds();
 });
 
 // место
@@ -175,22 +142,21 @@ addCardBtn.addEventListener('click', () => {
     togglePopup(popupPlace);
 });
 
-// закрытие попапа
+// закрытие попапов
 
-closePopupBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const popupNode = btn.closest('.popup');
-        if (popupNode.getAttribute('id') === 'imagePopup') {
-            popupNode.querySelector('.popup__picture').src = ""
-            popupNode.querySelector('.popup__title').textContent = ""
-        }
-        togglePopup(popupNode);
-    });
-})
+closeProfilePopupBtn.addEventListener('click', () => {
+    const popupNode = closeProfilePopupBtn.closest('.popup');
+    togglePopup(popupNode);
+});
 
-document.addEventListener('keydown', function(event) {
-    const {key} = event; 
-    if (key === "Escape") {
-        togglePopup();
-    }
-})
+closePlacePopupBtn.addEventListener('click', () => {
+    const popupNode = closePlacePopupBtn.closest('.popup');
+    togglePopup(popupNode);
+});
+
+closeImagePopupBtn.addEventListener('click', () => {
+    const popupNode = closeImagePopupBtn.closest('.popup');
+    popupNode.querySelector('.popup__picture').src = '';
+    popupNode.querySelector('.popup__title').textContent = '';
+    togglePopup(popupNode);
+});

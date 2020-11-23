@@ -1,12 +1,16 @@
 .pictures-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
     row-gap: 17px;
     column-gap: 20px;
     margin-bottom: 67px;
     margin-top: 45px;
 }
-
+@media screen and (max-width: 920px){
+    .pictures-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
 @media screen and (max-width: 767px){
     .pictures-grid {
         margin-top: 36px;
