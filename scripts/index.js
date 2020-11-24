@@ -48,46 +48,9 @@ function togglePopup (node) {
     node.classList.toggle('popup_opened')
 }
 
-// записываем из инпутов, выключаем попап профиля
-
-function profileFormSubmitHandler (e) {
-    e.preventDefault(); 
-
-    const nameFromForm = profilePopupName.value;
-    const titleFromForm = profilePopupTitle.value;
-
-    userName.textContent = nameFromForm;
-    userProf.textContent = titleFromForm;
-
-    togglePopup(popupProfile);
-}
-
-profileFormElement.addEventListener('submit', profileFormSubmitHandler); 
-
-// записываем из инпутов, выключаем попап места 
-
-function placeFormSubmitHandler (e) {
-    e.preventDefault(); 
-
-    const singleCard = {}
-
-    singleCard.name = placeName.value;
-    singleCard.link = placeLink.value;
-    
-    createCard(singleCard);
-    togglePopup(popupPlace);
-    
-}
-
-placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
-
 // вся работа с карточками мест
 
 const mestoCardContainer = document.querySelector('.pictures-grid');
-
-const addCard = (card) => {
-    mestoCardContainer.prepend(card);
-}
 
 const createCard = (card) => {
     const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
@@ -119,44 +82,101 @@ const createCard = (card) => {
     delBtn.addEventListener('click', event => {
         const cardNode = event.target.closest('.picture-card');
         if (cardNode) {
-            cardNode.remove()
+            cardNode.remove();
         }
     })
-
-    addCard(mestoCard);
-
+    return mestoCard
 }
 
-initialCards.forEach(createCard);
+// функция для добавления карточек при загрузке страницы
+
+const addCards = (card) => {
+    mestoCardContainer.append(card);
+}
+
+// функция для добавления карточки при нажатии на сабмит
+
+const addCard = (card) => {
+    mestoCardContainer.prepend(card);
+}
+
+// создаём карточки 
+
+const cardNodes = initialCards.map(function(card) {
+    return createCard(card)
+  });
+
+// добавляем на страницу карточки 
+
+cardNodes.forEach(addCards);
 
 // обработчики включения попапов 
 
 // профиль
+
 editProfileBtn.addEventListener('click', () => {
     togglePopup(popupProfile);
     fillEditUserProfilePopupFilelds();
 });
 
 // место
+
 addCardBtn.addEventListener('click', () => {
     togglePopup(popupPlace);
 });
 
+// хендлер сабмита попап профиля
+
+function profileFormSubmitHandler (e) {
+    e.preventDefault(); 
+
+    const nameFromForm = profilePopupName.value;
+    const titleFromForm = profilePopupTitle.value;
+
+    userName.textContent = nameFromForm;
+    userProf.textContent = titleFromForm;
+
+    togglePopup(popupProfile);
+}
+
+profileFormElement.addEventListener('submit', profileFormSubmitHandler); 
+
+// хендлер сабмита попап места 
+
+function placeFormSubmitHandler (e) {
+    e.preventDefault(); 
+
+    const singleCard = {};
+
+    singleCard.name = placeName.value;
+    singleCard.link = placeLink.value;
+
+    // создаём карточку
+
+    const cardNode = createCard(singleCard);
+  
+
+    // добавляем на страницу эту карточку
+
+    addCard(cardNode);
+    togglePopup(popupPlace);
+    
+}
+
+placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
+
 // закрытие попапов
 
 closeProfilePopupBtn.addEventListener('click', () => {
-    const popupNode = closeProfilePopupBtn.closest('.popup');
-    togglePopup(popupNode);
+    togglePopup(popupProfile);
 });
 
 closePlacePopupBtn.addEventListener('click', () => {
-    const popupNode = closePlacePopupBtn.closest('.popup');
-    togglePopup(popupNode);
+    togglePopup(popupPlace);
 });
 
 closeImagePopupBtn.addEventListener('click', () => {
-    const popupNode = closeImagePopupBtn.closest('.popup');
-    popupNode.querySelector('.popup__picture').src = '';
-    popupNode.querySelector('.popup__title').textContent = '';
-    togglePopup(popupNode);
+    popupImage.querySelector('.popup__picture').src = '';
+    popupImage.querySelector('.popup__title').textContent = '';
+    togglePopup(popupImage);
 });
