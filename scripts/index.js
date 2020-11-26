@@ -10,6 +10,7 @@ const addCardBtn = document.querySelector('.add-picture-button');
 
 // popup nodes
 
+const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_edit-user-profile');
 const popupPlace = document.querySelector('.popup_add-card');
 const popupImage = document.querySelector('.popup_show-image');
@@ -42,10 +43,27 @@ function fillImgPopup (node) {
     popupImg.src = node.querySelector('.picture-card__picture').src;
     popupImg.alt = node.querySelector('.picture-card__title').textContent;
 }
+
 // туглим попап
 
-function togglePopup (node) {
-    node.classList.toggle('popup_opened')
+const openPopup = (node) => {
+    node.classList.add('popup_opened');
+    document.addEventListener('keydown', escListener); 
+}
+
+const closePopup = (node) => {
+    if(node.classList.contains('popup_opened')) {
+        node.classList.remove('popup_opened');
+    } 
+}
+
+// вешаем esc на документ 
+
+function escListener(evt) {
+    if (evt.key === 'Escape') {
+        closePopup(document.querySelector('.popup_opened'));
+        document.removeEventListener('keydown', escListener);
+    } 
 }
 
 // вся работа с карточками мест
@@ -65,7 +83,7 @@ const createCard = (card) => {
     const imgBtn = mestoCard.querySelector('.picture-card__imgBtn');
     imgBtn.addEventListener('click', (event) => {
         const cardNode = event.target.closest('.picture-card');
-        togglePopup(popupImage);
+        openPopup(popupImage);
         fillImgPopup(cardNode);
     })   
     
@@ -115,20 +133,19 @@ cardNodes.forEach(addCards);
 // профиль
 
 editProfileBtn.addEventListener('click', () => {
-    togglePopup(popupProfile);
+    openPopup(popupProfile);
     fillEditUserProfilePopupFilelds();
 });
 
 // место
 
 addCardBtn.addEventListener('click', () => {
-    togglePopup(popupPlace);
+    openPopup(popupPlace);
 });
 
 // хендлер сабмита попап профиля
 
 function profileFormSubmitHandler (e) {
-    e.preventDefault(); 
 
     const nameFromForm = profilePopupName.value;
     const titleFromForm = profilePopupTitle.value;
@@ -136,7 +153,7 @@ function profileFormSubmitHandler (e) {
     userName.textContent = nameFromForm;
     userProf.textContent = titleFromForm;
 
-    togglePopup(popupProfile);
+    closePopup(popupProfile);
 }
 
 profileFormElement.addEventListener('submit', profileFormSubmitHandler); 
@@ -144,7 +161,6 @@ profileFormElement.addEventListener('submit', profileFormSubmitHandler);
 // хендлер сабмита попап места 
 
 function placeFormSubmitHandler (e) {
-    e.preventDefault(); 
 
     const singleCard = {};
 
@@ -159,24 +175,48 @@ function placeFormSubmitHandler (e) {
     // добавляем на страницу эту карточку
 
     addCard(cardNode);
-    togglePopup(popupPlace);
-    
+    closePopup(popupPlace);
+
+    placeName.value = '';
+    placeLink.value = '';
+
 }
 
 placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
 
+// очистка попапа с изображением
+
+const clearTagsImgPopup = () => {
+    popupImage.querySelector('.popup__picture').src = '';
+    popupImage.querySelector('.popup__picture').alt = '';
+    popupImage.querySelector('.popup__title').textContent = '';
+}
 // закрытие попапов
 
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        const currentPopup = evt.target
+        if(currentPopup.classList.contains('popup')){
+            if (currentPopup.classList.contains('popup_show-image')){
+                clearTagsImgPopup();
+            }
+            closePopup(popup);
+        }
+    })
+})
+
 closeProfilePopupBtn.addEventListener('click', () => {
-    togglePopup(popupProfile);
+    closePopup(popupProfile);
 });
 
 closePlacePopupBtn.addEventListener('click', () => {
-    togglePopup(popupPlace);
+    closePopup(popupPlace);
 });
 
 closeImagePopupBtn.addEventListener('click', () => {
-    popupImage.querySelector('.popup__picture').src = '';
-    popupImage.querySelector('.popup__title').textContent = '';
-    togglePopup(popupImage);
+    clearTagsImgPopup();
+    closePopup(popupImage);
 });
+
+

@@ -45,4 +45,7 @@
 @import url('./../blocks/popup/__title/_theme/popup__title_theme_white.css');
 @import url('./../blocks/popup/__form/popup__form.css');
 @import url('./../blocks/popup/__input/popup__input.css');
+@import url('./../blocks/popup/__input/_state/popup__input_state_invalid.css');
+@import url('./../blocks/popup/__input-error/popup__input-error.css');
 @import url('./../blocks/popup/__submit-button/popup__submit-button.css');
+@import url('./../blocks/popup/__submit-button/_state/popup__submit-button_state_disActive.css');
