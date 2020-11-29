@@ -3,7 +3,7 @@
 const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
 const editProfileBtn = document.querySelector('.user-info__edit-button');
-const cardTemplate = document.querySelector('.picture-card-template').content.cloneNode(true);
+const cardTemplate = document.querySelector('.picture-card-template').content
 
 // cards nodes
 
@@ -70,8 +70,7 @@ function handleEscPress(evt) {
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
 const createCard = (card) => {
-    const mestoCard = cardTemplate;
-    //mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
+    mestoCard = cardTemplate.cloneNode(true);
     const picture = mestoCard.querySelector('.picture-card__picture');
     mestoCard.querySelector('.picture-card__title').textContent = card.name;
     picture.src = card.link;
@@ -115,7 +114,6 @@ const addCards = (card) => {
 
 const addCard = (card) => {
     mestoCardContainer.prepend(card);
-
 }
 
 // создаём карточки 
@@ -123,7 +121,7 @@ const addCard = (card) => {
 const cardNodes = initialCards.map(function(card) {
     return createCard(card)
   });
-
+  
 // добавляем на страницу карточки 
 
 cardNodes.forEach(addCards);
