@@ -3,6 +3,7 @@
 const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
 const editProfileBtn = document.querySelector('.user-info__edit-button');
+const cardTemplate = document.querySelector('.picture-card-template').content.cloneNode(true);
 
 // cards nodes
 
@@ -48,21 +49,19 @@ function fillImgPopup (node) {
 
 const openPopup = (node) => {
     node.classList.add('popup_opened');
-    document.addEventListener('keydown', escListener); 
+    document.addEventListener('keydown', handleEscPress); 
 }
 
 const closePopup = (node) => {
-    if(node.classList.contains('popup_opened')) {
-        node.classList.remove('popup_opened');
-    } 
+    node.classList.remove('popup_opened');
+    document.removeEventListener('keydown', handleEscPress);
 }
 
 // вешаем esc на документ 
 
-function escListener(evt) {
+function handleEscPress(evt) {
     if (evt.key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
-        document.removeEventListener('keydown', escListener);
     } 
 }
 
@@ -71,9 +70,9 @@ function escListener(evt) {
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
 const createCard = (card) => {
-    const mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
+    const mestoCard = cardTemplate;
+    //mestoCard = document.querySelector('.picture-card-template').content.cloneNode(true);
     const picture = mestoCard.querySelector('.picture-card__picture');
-
     mestoCard.querySelector('.picture-card__title').textContent = card.name;
     picture.src = card.link;
     picture.alt = card.name;
@@ -116,6 +115,7 @@ const addCards = (card) => {
 
 const addCard = (card) => {
     mestoCardContainer.prepend(card);
+
 }
 
 // создаём карточки 
