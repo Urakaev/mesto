@@ -71,40 +71,6 @@ function handleEscPress(evt) {
 
 const mestoCardContainer = document.querySelector('.pictures-grid');
 
-const createCard = (card) => {
-    mestoCard = cardTemplate.cloneNode(true);
-    const picture = mestoCard.querySelector('.picture-card__picture');
-    mestoCard.querySelector('.picture-card__title').textContent = card.name;
-    picture.src = card.link;
-    picture.alt = card.name;
-
-    // вешаем открытие попапа с изображением на каждый элемент
-
-    const imgBtn = mestoCard.querySelector('.picture-card__imgBtn');
-    imgBtn.addEventListener('click', (event) => {
-        const cardNode = event.target.closest('.picture-card');
-        openPopup(popupImage);
-        fillImgPopup(cardNode);
-    })
-
-    // вешаем лайк
-
-    const likeBtn = mestoCard.querySelector('.picture-card__like');
-    likeBtn.addEventListener('click', () => {
-        likeBtn.classList.toggle('picture-card__like_active');
-    })
-
-    // удаление карточки
-
-   /* const delBtn = mestoCard.querySelector('.picture-card__delButton');
-    delBtn.addEventListener('click', event => {
-        const cardNode = event.target.closest('.picture-card');
-        if (cardNode) {
-            cardNode.remove();
-        }
-    })*/
-    return mestoCard
-}
 
 // функция для добавления карточек при загрузке страницы
 
@@ -183,6 +149,8 @@ function placeFormSubmitHandler (e) {
 
 placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
+
+
 // очистка попапа с изображением
 
 const clearTagsImgPopup = () => {
@@ -190,8 +158,8 @@ const clearTagsImgPopup = () => {
     popupImage.querySelector('.popup__picture').alt = '';
     popupImage.querySelector('.popup__title').textContent = '';
 }
-// закрытие попапов
 
+// закрытие попапов
 
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
