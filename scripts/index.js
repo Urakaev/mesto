@@ -1,4 +1,4 @@
-// info-card nodes 
+// info-card nodes
 
 const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
@@ -33,7 +33,7 @@ const closeImagePopupBtn = popupImage.querySelector('.popup__close-button');
 
 function fillEditUserProfilePopupFilelds () {
     profilePopupName.value = userName.textContent;
-    profilePopupTitle.value = userProf.textContent;  
+    profilePopupTitle.value = userProf.textContent;
 }
 
 function fillImgPopup (node) {
@@ -49,7 +49,7 @@ function fillImgPopup (node) {
 
 const openPopup = (node) => {
     node.classList.add('popup_opened');
-    document.addEventListener('keydown', handleEscPress); 
+    document.addEventListener('keydown', handleEscPress);
 }
 
 const closePopup = (node) => {
@@ -57,12 +57,14 @@ const closePopup = (node) => {
     document.removeEventListener('keydown', handleEscPress);
 }
 
-// вешаем esc на документ 
+// вешаем esc на документ
 
 function handleEscPress(evt) {
     if (evt.key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
-    } 
+        clearTagsImgPopup();
+
+    }
 }
 
 // вся работа с карточками мест
@@ -83,24 +85,24 @@ const createCard = (card) => {
         const cardNode = event.target.closest('.picture-card');
         openPopup(popupImage);
         fillImgPopup(cardNode);
-    })   
-    
-    // вешаем лайк 
-    
-    const likeBtn = mestoCard.querySelector('.picture-card__like');
-    likeBtn.addEventListener('click', () => {
-        likeBtn.classList.toggle('picture-card__like_active'); 
     })
 
-    // удаление карточки 
+    // вешаем лайк
 
-    const delBtn = mestoCard.querySelector('.picture-card__delButton');
+    const likeBtn = mestoCard.querySelector('.picture-card__like');
+    likeBtn.addEventListener('click', () => {
+        likeBtn.classList.toggle('picture-card__like_active');
+    })
+
+    // удаление карточки
+
+   /* const delBtn = mestoCard.querySelector('.picture-card__delButton');
     delBtn.addEventListener('click', event => {
         const cardNode = event.target.closest('.picture-card');
         if (cardNode) {
             cardNode.remove();
         }
-    })
+    })*/
     return mestoCard
 }
 
@@ -108,6 +110,7 @@ const createCard = (card) => {
 
 const addCards = (card) => {
     mestoCardContainer.append(card);
+
 }
 
 // функция для добавления карточки при нажатии на сабмит
@@ -116,17 +119,17 @@ const addCard = (card) => {
     mestoCardContainer.prepend(card);
 }
 
-// создаём карточки 
 
-const cardNodes = initialCards.map(function(card) {
-    return createCard(card)
-  });
-  
-// добавляем на страницу карточки 
+//создаём карточки и добавляем их в разметку
 
-cardNodes.forEach(addCards);
+initialCards.forEach((item) => {
+  const card = new Card(item, '.picture-card-template');
+  const cardElement = card.generateCard();
 
-// обработчики включения попапов 
+  addCards(cardElement);
+})
+
+// обработчики включения попапов
 
 // профиль
 
@@ -154,9 +157,9 @@ function profileFormSubmitHandler (e) {
     closePopup(popupProfile);
 }
 
-profileFormElement.addEventListener('submit', profileFormSubmitHandler); 
+profileFormElement.addEventListener('submit', profileFormSubmitHandler);
 
-// хендлер сабмита попап места 
+// хендлер сабмита попап места
 
 function placeFormSubmitHandler (e) {
 
@@ -165,14 +168,12 @@ function placeFormSubmitHandler (e) {
     singleCard.name = placeName.value;
     singleCard.link = placeLink.value;
 
-    // создаём карточку
+    //создаём карточку и добавляем на страницу эту карточку
 
-    const cardNode = createCard(singleCard);
-  
+    const card = new Card(singleCard, '.picture-card-template');
+    const cardElement = card.generateCard();
 
-    // добавляем на страницу эту карточку
-
-    addCard(cardNode);
+    addCard(cardElement);
     closePopup(popupPlace);
 
     placeName.value = '';
@@ -180,7 +181,7 @@ function placeFormSubmitHandler (e) {
 
 }
 
-placeFormElement.addEventListener('submit', placeFormSubmitHandler); 
+placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
 // очистка попапа с изображением
 
