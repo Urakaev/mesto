@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
     constructor(config, formElement) {
       this._config = config;
       this._selector = formElement;
@@ -59,18 +59,4 @@ class FormValidator {
   }
 
 
-// создание валидатора для каждой формы
 
-document.querySelectorAll('.popup__form').forEach((item) => {
-  const config = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_state_disActive',
-    inputErrorClass: 'popup__input_state_invalid',
-    errorClass: 'popup__input-error'
-  }
-  const validator = new FormValidator(config, item);
-
-  validator.enableValidation()
-})

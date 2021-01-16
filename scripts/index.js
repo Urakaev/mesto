@@ -1,3 +1,5 @@
+import Card from './card.js';
+import FormValidator from './validate.js';
 // info-card nodes
 
 const userName = document.querySelector('.user-info__name')
@@ -149,7 +151,21 @@ function placeFormSubmitHandler (e) {
 
 placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
+// создание валидатора для каждой формы
 
+document.querySelectorAll('.popup__form').forEach((item) => {
+    const config = {
+      formSelector: '.popup__form',
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__submit-button',
+      inactiveButtonClass: 'popup__submit-button_state_disActive',
+      inputErrorClass: 'popup__input_state_invalid',
+      errorClass: 'popup__input-error'
+    }
+    const validator = new FormValidator(config, item);
+  
+    validator.enableValidation()
+  })
 
 // очистка попапа с изображением
 
