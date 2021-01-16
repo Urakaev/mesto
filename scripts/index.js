@@ -1,5 +1,5 @@
 import Card from './card.js';
-import FormValidator from './validate.js';
+import FormValidator from './FormValidator.js';
 // info-card nodes
 
 const userName = document.querySelector('.user-info__name')
