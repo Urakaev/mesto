@@ -5,7 +5,6 @@ import FormValidator from './FormValidator.js';
 const userName = document.querySelector('.user-info__name')
 const userProf = document.querySelector('.user-info__profession')
 const editProfileBtn = document.querySelector('.user-info__edit-button');
-const cardTemplate = document.querySelector('.picture-card-template').content
 
 // cards nodes
 
@@ -17,6 +16,7 @@ const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_edit-user-profile');
 const popupPlace = document.querySelector('.popup_add-card');
 const popupImage = document.querySelector('.popup_show-image');
+const popupBigPicture = popupImage.querySelector('.popup__picture');
 
 
 const profilePopupName = popupProfile.querySelector('.popup__input_type_name');
@@ -36,15 +36,6 @@ const closeImagePopupBtn = popupImage.querySelector('.popup__close-button');
 function fillEditUserProfilePopupFilelds () {
     profilePopupName.value = userName.textContent;
     profilePopupTitle.value = userProf.textContent;
-}
-
-function fillImgPopup (node) {
-    const popupTitle = popupImage.querySelector('.popup__title');
-    popupTitle.textContent = node.querySelector('.picture-card__title').textContent;
-
-    const popupImg = popupImage.querySelector('.popup__picture');
-    popupImg.src = node.querySelector('.picture-card__picture').src;
-    popupImg.alt = node.querySelector('.picture-card__title').textContent;
 }
 
 // туглим попап
@@ -90,11 +81,16 @@ const addCard = (card) => {
 
 //создаём карточки и добавляем их в разметку
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '.picture-card-template');
-  const cardElement = card.generateCard();
+const createCard = (item) => {
+    const card = new Card(item, '.picture-card-template');
+    const cardElement = card.generateCard();
 
-  addCards(cardElement);
+    return cardElement;
+}
+
+initialCards.forEach((item) => {
+    const cardElement = createCard(item);
+    addCards(cardElement);
 })
 
 // обработчики включения попапов
@@ -114,7 +110,7 @@ addCardBtn.addEventListener('click', () => {
 
 // хендлер сабмита попап профиля
 
-function profileFormSubmitHandler (e) {
+function handleProfileFormSubmit (e) {
 
     const nameFromForm = profilePopupName.value;
     const titleFromForm = profilePopupTitle.value;
@@ -125,11 +121,11 @@ function profileFormSubmitHandler (e) {
     closePopup(popupProfile);
 }
 
-profileFormElement.addEventListener('submit', profileFormSubmitHandler);
+profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
 // хендлер сабмита попап места
 
-function placeFormSubmitHandler (e) {
+function handlePlaceFormSubmit (e) {
 
     const singleCard = {};
 
@@ -138,40 +134,40 @@ function placeFormSubmitHandler (e) {
 
     //создаём карточку и добавляем на страницу эту карточку
 
-    const card = new Card(singleCard, '.picture-card-template');
-    const cardElement = card.generateCard();
+    const cardElement = createCard(singleCard);
 
     addCard(cardElement);
     closePopup(popupPlace);
 
-    placeName.value = '';
-    placeLink.value = '';
+    placeFormElement.reset();
 
 }
 
-placeFormElement.addEventListener('submit', placeFormSubmitHandler);
+placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 // создание валидатора для каждой формы
 
-document.querySelectorAll('.popup__form').forEach((item) => {
-    const config = {
-      formSelector: '.popup__form',
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__submit-button',
-      inactiveButtonClass: 'popup__submit-button_state_disActive',
-      inputErrorClass: 'popup__input_state_invalid',
-      errorClass: 'popup__input-error'
-    }
-    const validator = new FormValidator(config, item);
+const config = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_state_disActive',
+    inputErrorClass: 'popup__input_state_invalid',
+    errorClass: 'popup__input-error'
+}
+
   
-    validator.enableValidation()
-  })
+const profileFormValidator = new FormValidator(config, profileFormElement);
+profileFormValidator.enableValidation();
+
+const placeFormValidator = new FormValidator(config, placeFormElement);
+placeFormValidator.enableValidation();
 
 // очистка попапа с изображением
 
 const clearTagsImgPopup = () => {
-    popupImage.querySelector('.popup__picture').src = '';
-    popupImage.querySelector('.popup__picture').alt = '';
+    popupBigPicture.src = '';
+    popupBigPicture.alt = '';
     popupImage.querySelector('.popup__title').textContent = '';
 }
 

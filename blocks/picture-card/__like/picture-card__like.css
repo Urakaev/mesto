@@ -12,10 +12,6 @@
     flex-shrink: 0;
 }
 
-.picture-card__like:hover {
-    background-image: url(../../../images/like_active.svg);
-}
-
 .picture-card__like:focus {
     outline-color: steelblue;
 }
