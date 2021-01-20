@@ -49,7 +49,9 @@ export default class Card {
     this._element.querySelector('.picture-card__like').classList.toggle('picture-card__like_active');
   }
   _setEventListeners() {
-    this._handleCardClick();
+    this._element.addEventListener('click', () =>{
+      this._handleCardClick();
+    }) 
     this._element.querySelector('.picture-card__delButton').addEventListener('click', () =>{
       this._removeCard();
     })

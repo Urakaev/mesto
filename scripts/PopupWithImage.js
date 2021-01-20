@@ -1,14 +1,12 @@
 import Popup from './Popup.js'
 
 export default class PopupWithImage extends Popup{
-    /*constructor(popupSelector) {
-        this.popupSelector =  super(popupSelector);
-    }*/
+    constructor(popupSelector) {
+        super(popupSelector);
+    }
     open() {
-        console.log("foo")
-        /*
-        super._popupSelector.classList.add('.popup_opened');
-        super._popupSelector.classList.add('.fooo');
-        document.addEventListener('keydown', this._handleEscClose);*/
+        console.log(this._popupSelector)
+        document.querySelector(this._popupSelector).classList.add('popup_opened');
+        document.addEventListener('keydown', this._handleEscClose);
     }
 }
