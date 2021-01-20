@@ -50,7 +50,7 @@ export default class Card {
   }
   _setEventListeners() {
     this._element.addEventListener('click', () =>{
-      this._handleCardClick();
+      this._handleCardClick(this._name, this._link);
     }) 
     this._element.querySelector('.picture-card__delButton').addEventListener('click', () =>{
       this._removeCard();

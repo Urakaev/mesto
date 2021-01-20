@@ -107,9 +107,9 @@ const cardsList = new Section({ //создаём новый экзмпляр
     renderer: (item) => { //функция инструкция 
       const card = new Card({
           data: item,
-          handleCardClick: () => {
+          handleCardClick: (place, link) => {
               const popup = new PopupWithImage('.popup_show-image');
-              popup.open()
+              popup.open(place, link)
           }
       }, '.picture-card-template') //записываем в карточку экземпляр класса, передаём туда параметр item(это элемент массива данных) и шаблон карточки
        
@@ -220,13 +220,13 @@ const clearTagsImgPopup = () => {
     closePopup(popupProfile);
 });
 */
-closePlacePopupBtn.addEventListener('click', () => {
+/*closePlacePopupBtn.addEventListener('click', () => {
     closePopup(popupPlace);
-});
+});*/
 
-closeImagePopupBtn.addEventListener('click', () => {
+/*closeImagePopupBtn.addEventListener('click', () => {
     clearTagsImgPopup();
     closePopup(popupImage);
 });
-
+*/
 
