@@ -1,8 +1,9 @@
 export default class Card {
-  constructor (data, cardSelector) {
+  constructor ({data, handleCardClick}, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick
   }
   _getTemplate() {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.picture-card').cloneNode(true)
@@ -18,7 +19,7 @@ export default class Card {
     return this._element
   }
 
-  _handleOpenImagePopup() {
+  /*_handleOpenImagePopup() {
 
     const popupImage = document.querySelector('.popup_show-image')
     popupImage.classList.add('popup_opened');
@@ -37,7 +38,7 @@ export default class Card {
     popupImg.src = this._link;
     popupImg.alt = this._name
   }
-
+*/
   _removeCard() {
     if (this._element) {
       this._element.remove();
@@ -48,9 +49,7 @@ export default class Card {
     this._element.querySelector('.picture-card__like').classList.toggle('picture-card__like_active');
   }
   _setEventListeners() {
-    this._element.querySelector('.picture-card__picture').addEventListener('click', () =>{
-      this._handleOpenImagePopup();
-    })
+    this._handleCardClick();
     this._element.querySelector('.picture-card__delButton').addEventListener('click', () =>{
       this._removeCard();
     })

@@ -1,5 +1,14 @@
-import Card from './card.js';
+import Section from './Section.js';
+import Card from './Сard.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import {
+    initialCards,
+    mestoCardContainer 
+} from './constants.js';
 import FormValidator from './FormValidator.js';
+import PopupWithForm from './PopupWithImage.js';
+
 // info-card nodes
 
 const userName = document.querySelector('.user-info__name')
@@ -39,7 +48,7 @@ function fillEditUserProfilePopupFilelds () {
 }
 
 // туглим попап
-
+/*
 const openPopup = (node) => {
     node.classList.add('popup_opened');
     document.addEventListener('keydown', handleEscPress);
@@ -49,7 +58,7 @@ const closePopup = (node) => {
     node.classList.remove('popup_opened');
     document.removeEventListener('keydown', handleEscPress);
 }
-
+*/
 // вешаем esc на документ
 
 function handleEscPress(evt) {
@@ -62,7 +71,7 @@ function handleEscPress(evt) {
 
 // вся работа с карточками мест
 
-const mestoCardContainer = document.querySelector('.pictures-grid');
+//const mestoCardContainer = document.querySelector('.pictures-grid');
 
 
 // функция для добавления карточек при загрузке страницы
@@ -81,17 +90,39 @@ const addCard = (card) => {
 
 //создаём карточки и добавляем их в разметку
 
-const createCard = (item) => {
+/*const createCard = (item) => {
     const card = new Card(item, '.picture-card-template');
     const cardElement = card.generateCard();
 
     return cardElement;
 }
-
-initialCards.forEach((item) => {
+*/
+/*initialCards.forEach((item) => {
     const cardElement = createCard(item);
     addCards(cardElement);
-})
+})*/
+
+const cardsList = new Section({ //создаём новый экзмпляр 
+    data: initialCards, // в дату передаём массив извне
+    renderer: (item) => { //функция инструкция 
+      const card = new Card({
+          data: item,
+          handleCardClick: () => {
+              const popup = new PopupWithImage('.popup_show-image');
+              popup.open()
+          }
+      }, '.picture-card-template') //записываем в карточку экземпляр класса, передаём туда параметр item(это элемент массива данных) и шаблон карточки
+       
+  
+      const cardElement = card.generateCard(); // вызываем метод который создаёт разметку карточки
+  
+      cardsList.addItem(cardElement); // вставка только что созданной карточки
+      },
+    },
+    mestoCardContainer // второй параметр - строка с названием селектора куда будем вставлять
+  );
+
+  cardsList.renderItems() // создание стартовых карточек
 
 // обработчики включения попапов
 
@@ -173,7 +204,7 @@ const clearTagsImgPopup = () => {
 
 // закрытие попапов
 
-popups.forEach((popup) => {
+/*popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         const currentPopup = evt.target
         if(currentPopup.classList.contains('popup')){
@@ -183,12 +214,12 @@ popups.forEach((popup) => {
             closePopup(popup);
         }
     })
-})
+})*/
 
-closeProfilePopupBtn.addEventListener('click', () => {
+/*closeProfilePopupBtn.addEventListener('click', () => {
     closePopup(popupProfile);
 });
-
+*/
 closePlacePopupBtn.addEventListener('click', () => {
     closePopup(popupPlace);
 });
