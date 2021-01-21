@@ -1,13 +1,14 @@
 import Section from './Section.js';
 import Card from './Сard.js';
 import Popup from './Popup.js';
+import UserInfo from './UserInfo.js';
 import PopupWithImage from './PopupWithImage.js';
 import {
     initialCards,
     mestoCardContainer
 } from './constants.js';
 import FormValidator from './FormValidator.js';
-import PopupWithForm from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 
 // info-card nodes
 
@@ -40,84 +41,38 @@ const closeProfilePopupBtn = popupProfile.querySelector('.popup__close-button');
 const closePlacePopupBtn = popupPlace.querySelector('.popup__close-button');
 const closeImagePopupBtn = popupImage.querySelector('.popup__close-button');
 
-// заполняем поля
 
-function fillEditUserProfilePopupFilelds () {
-    profilePopupName.value = userName.textContent;
-    profilePopupTitle.value = userProf.textContent;
-}
 
-// туглим попап
-/*
-const openPopup = (node) => {
-    node.classList.add('popup_opened');
-    document.addEventListener('keydown', handleEscPress);
-}
-
-const closePopup = (node) => {
-    node.classList.remove('popup_opened');
-    document.removeEventListener('keydown', handleEscPress);
-}
-*/
-// вешаем esc на документ
-
-function handleEscPress(evt) {
-    if (evt.key === 'Escape') {
-        closePopup(document.querySelector('.popup_opened'));
-        clearTagsImgPopup();
-
-    }
-}
 
 // вся работа с карточками мест
-
-//const mestoCardContainer = document.querySelector('.pictures-grid');
-
-
-// функция для добавления карточек при загрузке страницы
-
-const addCards = (card) => {
-    mestoCardContainer.append(card);
-
-}
-
-// функция для добавления карточки при нажатии на сабмит
-
-const addCard = (card) => {
-    mestoCardContainer.prepend(card);
-}
 
 
 //создаём карточки и добавляем их в разметку
 
-/*const createCard = (item) => {
-    const card = new Card(item, '.picture-card-template');
-    const cardElement = card.generateCard();
+const createCard = (item) => {
+  const card = new Card({
+    data: item,
+    handleCardClick: (place, link) => {
+        const imagePopup = new PopupWithImage('.popup_show-image');
+        imagePopup.open(place, link);
 
-    return cardElement;
+
+    }
+  }, '.picture-card-template')
+  return card //записываем в карточку экземпляр класса, передаём туда параметр item(это элемент массива данных) и шаблон карточки
 }
-*/
+
 /*initialCards.forEach((item) => {
     const cardElement = createCard(item);
     addCards(cardElement);
 })*/
-
 const cardsList = new Section({ //создаём новый экзмпляр
     data: initialCards, // в дату передаём массив извне
     renderer: (item) => { //функция инструкция
-      const card = new Card({
-          data: item,
-          handleCardClick: (place, link) => {
-              const popup = new PopupWithImage('.popup_show-image');
-              popup.open(place, link)
 
-          }
-      }, '.picture-card-template') //записываем в карточку экземпляр класса, передаём туда параметр item(это элемент массива данных) и шаблон карточки
+      const cardElement = createCard(item).generateCard(); // для результата функции createCard вызываем метод который создаёт разметку карточки
 
-
-      const cardElement = card.generateCard(); // вызываем метод который создаёт разметку карточки
-
-      cardsList.addItem(cardElement); // вставка только что созданной карточки
+      cardsList.addItems(cardElement); // вставка только что созданной карточки
       },
     },
     mestoCardContainer // второй параметр - строка с названием селектора куда будем вставлять
@@ -128,21 +83,62 @@ const cardsList = new Section({ //создаём новый экзмпляр
 // обработчики включения попапов
 
 // профиль
+const userSelectors = {
+  nameSelector: '.user-info__name',
+  profSelector: '.user-info__profession'
+}
+
+const userInfoObj = new UserInfo(userSelectors)
+let userInfo = userInfoObj.getUserInfo();
 
 editProfileBtn.addEventListener('click', () => {
-    openPopup(popupProfile);
-    fillEditUserProfilePopupFilelds();
+  const formPopup = new PopupWithForm({
+    popupSelector: '.popup_edit-user-profile',
+    submitFormHandler: (dataFromForm) => {
+      userInfo = userInfoObj.setUserInfo(dataFromForm);
+
+    }
+  });
+
+  formPopup.open()
+    // заполняем поля
+
+    function fillEditUserProfilePopupFilelds(data) {
+      profilePopupName.value = data.name;
+      profilePopupTitle.value = data.about;
+    }
+    fillEditUserProfilePopupFilelds(userInfo)
+
 });
 
 // место
 
 addCardBtn.addEventListener('click', () => {
-    openPopup(popupPlace);
-});
+  const formPopup = new PopupWithForm({
+    popupSelector: '.popup_add-card',
+    submitFormHandler: (dataFromForm) => {
+      const cardsList = new Section({
+        data: dataFromForm,
+        renderer: (item) => {
 
+          const cardElement = createCard(item).generateCard();
+
+          cardsList.addItem(cardElement);
+          },
+        },
+        mestoCardContainer
+      );
+
+      cardsList.renderItem()
+
+    }
+  });
+  formPopup.open()
+
+})
 // хендлер сабмита попап профиля
 
-function handleProfileFormSubmit (e) {
+/*function handleProfileFormSubmit (e) {
 
     const nameFromForm = profilePopupName.value;
     const titleFromForm = profilePopupTitle.value;
@@ -153,29 +149,8 @@ function handleProfileFormSubmit (e) {
     closePopup(popupProfile);
 }
 
-profileFormElement.addEventListener('submit', handleProfileFormSubmit);
+profileFormElement.addEventListener('submit', handleProfileFormSubmit);*/
 
-// хендлер сабмита попап места
-
-function handlePlaceFormSubmit (e) {
-
-    const singleCard = {};
-
-    singleCard.name = placeName.value;
-    singleCard.link = placeLink.value;
-
-    //создаём карточку и добавляем на страницу эту карточку
-
-    const cardElement = createCard(singleCard);
-
-    addCard(cardElement);
-    closePopup(popupPlace);
-
-    placeFormElement.reset();
-
-}
-
-placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 // создание валидатора для каждой формы
 
@@ -188,46 +163,19 @@ const config = {
     errorClass: 'popup__input-error'
 }
 
-
 const profileFormValidator = new FormValidator(config, profileFormElement);
 profileFormValidator.enableValidation();
 
 const placeFormValidator = new FormValidator(config, placeFormElement);
 placeFormValidator.enableValidation();
 
+
 // очистка попапа с изображением
 
-const clearTagsImgPopup = () => {
+/*const clearTagsImgPopup = () => {
     popupBigPicture.src = '';
     popupBigPicture.alt = '';
     popupImage.querySelector('.popup__title').textContent = '';
-}
+}*/
 
-// закрытие попапов
-
-/*popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-        const currentPopup = evt.target
-        if(currentPopup.classList.contains('popup')){
-            if (currentPopup.classList.contains('popup_show-image')){
-                clearTagsImgPopup();
-            }
-            closePopup(popup);
-        }
-    })
-})*/
-
-/*closeProfilePopupBtn.addEventListener('click', () => {
-    closePopup(popupProfile);
-});
-*/
-/*closePlacePopupBtn.addEventListener('click', () => {
-    closePopup(popupPlace);
-});*/
-
-/*closeImagePopupBtn.addEventListener('click', () => {
-    clearTagsImgPopup();
-    closePopup(popupImage);
-});
-*/
 

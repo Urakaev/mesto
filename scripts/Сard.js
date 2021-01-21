@@ -19,26 +19,6 @@ export default class Card {
     return this._element
   }
 
-  /*_handleOpenImagePopup() {
-
-    const popupImage = document.querySelector('.popup_show-image')
-    popupImage.classList.add('popup_opened');
-
-    document.addEventListener('keydown', (evt) => {
-      if (evt.key === 'Escape') {
-        closePopup(document.querySelector('.popup_opened'));
-        clearTagsImgPopup();
-      }
-    });
-
-    const popupTitle = popupImage.querySelector('.popup__title');
-    popupTitle.textContent = this._name
-
-    const popupImg = popupImage.querySelector('.popup__picture');
-    popupImg.src = this._link;
-    popupImg.alt = this._name
-  }
-*/
   _removeCard() {
     if (this._element) {
       this._element.remove();
@@ -49,9 +29,9 @@ export default class Card {
     this._element.querySelector('.picture-card__like').classList.toggle('picture-card__like_active');
   }
   _setEventListeners() {
-    this._element.addEventListener('click', () =>{
+    this._element.querySelector('.picture-card__picture').addEventListener('click', () =>{
       this._handleCardClick(this._name, this._link);
-    }) 
+    })
     this._element.querySelector('.picture-card__delButton').addEventListener('click', () =>{
       this._removeCard();
     })
