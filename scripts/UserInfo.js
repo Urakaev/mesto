@@ -13,6 +13,7 @@ export default class UserInfo{
     return this._formProfileValues;
   }
   setUserInfo(data) {
-    console.log(data)
+     document.querySelector(this._nameSelector).textContent = data.name
+     document.querySelector(this._profSelector).textContent = data.about
   }
 }
