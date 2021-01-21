@@ -4,7 +4,7 @@ import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import {
     initialCards,
-    mestoCardContainer 
+    mestoCardContainer
 } from './constants.js';
 import FormValidator from './FormValidator.js';
 import PopupWithForm from './PopupWithImage.js';
@@ -102,20 +102,21 @@ const addCard = (card) => {
     addCards(cardElement);
 })*/
 
-const cardsList = new Section({ //создаём новый экзмпляр 
+const cardsList = new Section({ //создаём новый экзмпляр
     data: initialCards, // в дату передаём массив извне
-    renderer: (item) => { //функция инструкция 
+    renderer: (item) => { //функция инструкция
       const card = new Card({
           data: item,
           handleCardClick: (place, link) => {
               const popup = new PopupWithImage('.popup_show-image');
               popup.open(place, link)
+
           }
       }, '.picture-card-template') //записываем в карточку экземпляр класса, передаём туда параметр item(это элемент массива данных) и шаблон карточки
-       
-  
+
+
       const cardElement = card.generateCard(); // вызываем метод который создаёт разметку карточки
-  
+
       cardsList.addItem(cardElement); // вставка только что созданной карточки
       },
     },
@@ -187,7 +188,7 @@ const config = {
     errorClass: 'popup__input-error'
 }
 
-  
+
 const profileFormValidator = new FormValidator(config, profileFormElement);
 profileFormValidator.enableValidation();
 

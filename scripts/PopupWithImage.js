@@ -5,9 +5,8 @@ export default class PopupWithImage extends Popup{
         super(popupSelector);
         this._popupElement = document.querySelector(this._popupSelector)
     }
-    open(place, link) {    
-        this._popupElement.classList.add('popup_opened');
-        document.addEventListener('keydown', this._handleEscClose);
+    open(place, link) {
+        super.open()
         this._popupElement.querySelector('.popup__title').textContent = place
         this._popupElement.querySelector('.popup__picture').src = link
     }
