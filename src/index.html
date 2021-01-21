@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+    <div class="page__container">
+        <header class="header">
+            <div class="header__logo"></div>
+        </header>
+        <main class="content">
+            <div class="info-card">
+                <div class="user-info">
+                    <img class="user-info__picture" src="./images/default-user-picture.jpg" alt="Жак-Ив Кусто">
+                    <div class="user-info__text">
+                        <div class="user-info__heading">
+                            <h1 class="user-info__name">Жак-Ив Кусто</h1><button type="button" class="user-info__edit-button"></button>
+                        </div>
+                        <p class="user-info__profession">Исследователь океана</p>
+                    </div>
+
+                </div>
+                <button type="button" class="add-picture-button"></button>
+            </div>
+            <div class="pictures-grid">
+            </div>
+        </main>
+        <footer class="footer">
+            <span class="footer__copyright">&copy; 2021. Уракаев Богдан</span>
+        </footer>
+    </div>
+    <div class="popup popup_edit-user-profile">
+        <div class="popup__content">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <form class="popup__form" name="profile">
+              <input type="text"
+                    name="name"
+                    id="name"
+                    class="popup__input popup__input_type_name"
+                    placeholder="Имя"
+                    minlength="2"
+                    maxlength="40"
+                    novalidate
+                    required>
+              <span id="name-error" class="popup__input-error"></span>
+              <input type="text"
+                     name="about"
+                     id="profession"
+                     class="popup__input popup__input_type_profession"
+                     placeholder="Вид деятельности"
+                     minlength="2"
+                     maxlength="200"
+                     novalidate
+                     required>
+                <span id="profession-error" class="popup__input-error"></span>
+              <button class="popup__submit-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup_add-card">
+        <div class="popup__content">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form class="popup__form">
+                <input type="text"
+                    class="popup__input popup__input_type_card-name"
+                    id="card-name"
+                    name="name"
+                    placeholder="Название"
+                    minlength="2"
+                    maxlength="200"
+                    novalidate
+                    required
+                >
+                <span id="card-name-error" class="popup__input-error"></span>
+                <input type="url"
+                    name="link"
+                    class="popup__input popup__input_type_link"
+                    id="url-link"
+                    placeholder="Ссылка на картинку"
+                    novalidate
+                    required>
+                <span id="url-link-error" class="popup__input-error"></span>
+              <button class="popup__submit-button" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup_show-image">
+        <div class="popup__content popup__content_type_transparent">
+            <button type="button" class="popup__close-button"></button>
+            <img class="popup__picture" src="https://thumbs.gfycat.com/AdvancedIdleAlpaca-size_restricted.gif" alt="дефолтное изображение">
+            <h3 class="popup__title popup__title_theme_white">Байкал</h3>
+        </div>
+    </div>
+    <template class="picture-card-template">
+        <div class="picture-card">
+            <button type="button" class="picture-card__imgBtn">
+                <img src="/" alt="дефолтное изображение" class="picture-card__picture">
+            </button>
+            <button type="button" class="picture-card__delButton"></button>
+            <div class="picture-card__info">
+                <p class="picture-card__title"></p>
+                <button type="button" class="picture-card__like"></button>
+            </div>
+        </div>
+    </template>
+</body>
+</html>
