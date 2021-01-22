@@ -10,6 +10,7 @@ export default class Section {
       this._renderedItems.forEach(item => this._renderer(item))
     }
     renderItem() {
+      console.log(this._renderedItems)
       this._renderer(this._renderedItems)
     }
     addItems(element) { // функция которая вставляет в контейнер готовый элемент, вызывается в инструкции
