@@ -98,26 +98,14 @@ editProfileBtn.addEventListener('click', () => {
 
 // место
 
-/* я вынес создание PopupWithForm и по клику вызываю его метод,
-но не понимаю как передать dataFromForm если из submitFormHandler вынести создание класса Section*/
-/*const newCardsList = new Section({
-  data: dataFromForm,
-  renderer: (item) => {
-      const cardElement = createCard(item).generateCard();
-      newCardsList.addItem(cardElement);
-  }
-},
-mestoCardContainer
-);
-*/
+
 const formPlacePopup = new PopupWithForm({
   popupSelector: '.popup_add-card',
   submitFormHandler: (dataFromForm) => {
-    console.log(dataFromForm)
-    cardsList.renderItem({ data: dataFromForm})
+    const cardElement = createCard(dataFromForm).generateCard()
+    cardsList.addItem(cardElement);
   }
 });
-
 
 
 /*click add card */
@@ -125,7 +113,6 @@ const formPlacePopup = new PopupWithForm({
 addCardBtn.addEventListener('click', () => {
   placeFormValidator.clearFormErrors()
   formPlacePopup.open()
-
 })
 
 
