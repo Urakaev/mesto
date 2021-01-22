@@ -9,10 +9,6 @@ export default class Section {
     renderItems() {  // функция которая проходит по массиву и выполняет инструкцию которую мы получили параметром в конструкторе
       this._renderedItems.forEach(item => this._renderer(item))
     }
-    renderItem(a) {
-      console.log(a)
-      this._renderer(a)
-    }
     addItems(element) { // функция которая вставляет в контейнер готовый элемент, вызывается в инструкции
       this._container.append(element);
     }
