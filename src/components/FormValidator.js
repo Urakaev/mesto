@@ -43,6 +43,20 @@ export default class FormValidator {
       })
     }
 
+    _checkValidation(thisForm, settings) {
+      const inputList = Array.from(
+        thisForm.querySelectorAll(settings.inputSelector)
+      );
+
+      inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement);
+      });
+    }
+
+    clearFormErrors() {
+      this._checkValidation(this._selector, this._config);
+    };
+
     enableValidation() {
       this._setEventListeners();
 
