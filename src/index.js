@@ -5,7 +5,7 @@ import UserInfo from './UserInfo.js';
 import PopupWithImage from './PopupWithImage.js';
 import {
     initialCards,
-    mestoCardContainer, 
+    mestoCardContainer,
     editProfileBtn,
     addCardBtn,
     profileFormElement,
@@ -15,6 +15,7 @@ import {
 } from './constants.js';
 import FormValidator from './FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
+import './pages/index.css'
 
 
 
@@ -70,7 +71,7 @@ editProfileBtn.addEventListener('click', () => {
     const userInfoObj = new UserInfo(userSelectors)
     let userInfo = userInfoObj.getUserInfo();
     fillEditUserProfilePopupFilelds(userInfo)
-    
+
 
     const formPopup = new PopupWithForm({
         popupSelector: '.popup_edit-user-profile',
