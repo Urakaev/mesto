@@ -9,5 +9,6 @@ export default class PopupWithImage extends Popup{
         super.open()
         this._popupElement.querySelector('.popup__title').textContent = place
         this._popupElement.querySelector('.popup__picture').src = link
+        this._popupElement.querySelector('.popup__picture').alt = place
     }
 }

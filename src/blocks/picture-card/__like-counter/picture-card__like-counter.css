@@ -1,0 +1,10 @@
+.picture-card__like-counter {
+    color: #000;
+    font-family: Inter,Helvetica,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    margin: 3px 0 0;
+}
