@@ -54,6 +54,8 @@ avatarEditFormValidator.enableValidation();
 
 //создаём карточки и добавляем их в разметку
 
+const imagePopup = new PopupWithImage('.popup_show-image'); //попап с изображением
+
 function createCard(item) {
   return new Card({
     cardSelector: ".picture-card-template",
@@ -63,16 +65,11 @@ function createCard(item) {
     thisUser: currentUser,
     likes: item.likes,
     cardId: item._id,
-    
-    handleCardClick: (evt) => {
-      const imagePopup = new PopupWithImage('.popup_show-image');
-      imagePopup.open(evt.target
-        .closest(".picture-card")
-        .querySelector(".picture-card__title").textContent,
-        evt.target.src,
-      );
+
+    handleCardClick: () => {
+      imagePopup.open(item.name, item.link); //imagePopup - объект созданый классом PopupWithImage
     },
-   
+
     handleLikeClick: (likedCardId, deleteLike, cardObject) => {
       api
         .reverseLike(likedCardId, deleteLike)
@@ -83,6 +80,7 @@ function createCard(item) {
           console.log(err);
         });
     },
+
 
     handleDelBtnClick: (cardObject) => {
       formWithDelConfirm.cardObject = cardObject;
@@ -116,7 +114,7 @@ function fillEditUserProfilePopupFilelds(data) {
 }
 const userInfoObj = new UserInfo(userSelectors);
 
-// форма изменения профиля 
+// форма изменения профиля
 
 const formProfilePopup = new PopupWithForm({
   popupSelector: '.popup_edit-user-profile',
@@ -141,7 +139,7 @@ const formProfilePopup = new PopupWithForm({
   }
 });
 
-// форма изменения аватарки 
+// форма изменения аватарки
 
 const formEditAvatar = new PopupWithForm({
   popupSelector: '.popup_edit-avatar',
@@ -222,7 +220,7 @@ const formPlacePopup = new PopupWithForm({
       })
       .finally(() => {
         formPlacePopup.setButtonText(buttonText);
-      });    
+      });
   }
 });
 

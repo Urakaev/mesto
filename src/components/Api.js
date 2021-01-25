@@ -4,14 +4,14 @@ export default class Api {
       this._baseUrl = options.baseUrl
       this._cardsUrl = options.cardsUrl
     }
-  
+
     _getResponseData(res) {
       if (!res.ok) {
         return Promise.reject(`Хьюстон у нас: ${res.status}`);
       }
       return res.json();
     }
-  
+
     getInitialCards() {
         return fetch(this._baseUrl + this._cardsUrl, {
             headers: this._headers,
@@ -90,4 +90,5 @@ export default class Api {
             return this._getResponseData(res);
         });
     }
+
 }

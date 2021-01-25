@@ -69,7 +69,7 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    
+
     this._picture = this._element.querySelector(".picture-card__picture");
     this._picture.src = this._image;
     this._picture.alt = this._title;
@@ -77,7 +77,7 @@ export default class Card {
 
     this._elementLike = this._element.querySelector(".picture-card__like");
     this._elementLikeCounter = this._element.querySelector(".picture-card__like-counter");
-    
+
     this._elementDelBtn = this._element.querySelector(".picture-card__delButton");
 
     if (this._owner !== this._thisUser) {
