@@ -36,7 +36,7 @@ export default class Card {
   _revertHeart(evt)  {
     const deleteLike = this._elementLike.classList.contains("picture-card__like_active");
     this._elementLike.classList.toggle("picture-card__like_active");
-    this._elementLikeCounter.textContent = this._likes.length + (deleteLike ? -1 : 1);
+    this._elementLikeCounter.textContent = this._likes.length// + (deleteLike ? -1 : 1); 
     this._handleLikeClick(this.cardId, deleteLike, this);
   };
 
